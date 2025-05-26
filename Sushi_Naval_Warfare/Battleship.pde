@@ -9,16 +9,10 @@ class Battleship{
   botBoard = new BBoard();
  }
  
- Board getBoard(int a){ //0 for player, 1 for bot
-   if (a == 0){
-     return playerBoard;
-   }
-   else{
-    return botBoard; 
-   }
+ void update(){
+  if (turn <= 0){
+   playerBoard.drawShips(); 
+  }
  }
  
- int getTurn(){
-  return turn; 
- }
 }

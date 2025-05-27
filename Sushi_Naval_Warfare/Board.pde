@@ -24,8 +24,27 @@ class Board{
    while (ships[ind] != null){
     ind++; 
    }
-   print(ind);
    ships[ind] = newShip;
+   for(int i = 0; i < ships[ind].size; i++){
+     int bX = (int)(ships[ind].location[i].x - 50) / squareSize;
+     int bY = (int)(ships[ind].location[i].y - 50) / squareSize;
+     board[bY][bX] += 1;
+   }
+ }
+ 
+ boolean checkBoat(Ship tryShip){
+   for (PVector l : tryShip.location){
+     if(!checkSpot(l.x, l.y)){
+       return false;
+     }
+   }
+   return true;
+ }
+ 
+ boolean checkSpot(float x, float y){
+   int bX = (int)(x - 50) / squareSize;
+   int bY = (int)(y - 50) / squareSize;
+   return board[bY][bX] == 0;
  }
  
  boolean sink(int x, int y){

@@ -13,13 +13,16 @@ void setup(){
  game = new Battleship();
  shipSelects = new ShipSelect[5];
  shipSelects[0] = new ShipSelect(loadImage("twoShipSelect.png"), 900, 50, 2, false);
- shipSelects[1] = new ShipSelect(loadImage("twoShipSelect.png"), 900, 300, 2, true);
+ shipSelects[1] = new ShipSelect(loadImage("threeShipSelect.png"), 900, 150, 3, true);
+ shipSelects[2] = new ShipSelect(loadImage("threeShipSelect.png"), 1000, 150, 3, true);
+ shipSelects[3] = new ShipSelect(loadImage("fourShipSelect.png"), 900, 400, 4, true);
+ shipSelects[4] = new ShipSelect(loadImage("fiveShipSelect.png"), 1000, 400, 5, true);
 }
 
 void draw(){
   background(backColor);
  grid();
- printMouseLocations();
+ //printMouseLocations();
  for (ShipSelect s: shipSelects){
    if (s != null){
        s.draw();  
@@ -71,6 +74,15 @@ void highlight(){
   }
 }
 
+void printPBoard(){
+ for (int[] row : game.playerBoard.board){
+  for (int c : row){
+   print(c + " "); 
+  }
+  println("");
+ }
+}
+
 int gridTranslate(int n){
   return (n - 50) / 80 * 80 + 50;
 }
@@ -80,18 +92,44 @@ void mouseClicked(){
    if (game.turn == -1){
      for (ShipSelect s : shipSelects){
       if (s != null){
-       s.checkPressed();  
+         s.checkPressed();
       }
      }
      if (selectedShip != null){
-      selectedShip.place();
+      if (selectedShip.place()){
+        for (ShipSelect s : shipSelects){
+          if (s.selected){
+            s.placed = true;
+            s.selected = false;
+          }
+        }
+      }
      }
    }
+ }
+}
+
+void clearSelect(){
+ for (ShipSelect s: shipSelects){
+  s.selected = false; 
  }
 }
 
 void keyPressed(){
  if (key == 'x'){
   selectedShip = null; 
+ }
+ if (key == 'c'){
+  printPBoard(); 
+ }
+ if (key == 'r'){
+  if (selectedShip != null){
+     if (selectedShip.r == true){
+      selectedShip.r = false; 
+     }
+     else{
+      selectedShip.r = true; 
+     }
+  }
  }
 }

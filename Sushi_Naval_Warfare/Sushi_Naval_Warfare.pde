@@ -49,20 +49,23 @@ void printMouseLocations(){
 }
 
 void grid(){
- int lineX = 50;
- int lineY = 50;
  fill(shipColor);
- rect(lineX, lineY, squareSize * 10, squareSize * 10);
- fill(0);
- for (int i = 0; i <= 10; i++){
-  line(lineX, lineY, lineX, height - 50);
-  lineX += squareSize;
+ for (int r = 50; r < 850; r += squareSize){
+   for (int c = 50; c < 850; c+= squareSize){
+     if (game.turn != 0){
+       if (game.playerBoard.getVal(c, r) < 0){
+         tint(170, 255);
+       }
+     }
+     if (game.turn == 0){
+       if (game.botBoard.getVal(c, r) < 0){
+         tint(170, 255);
+       }
+     }
+     rect(c, r, squareSize, squareSize);
+       tint(255);
+   }
  }
- lineX = 50;
- for (int i = 0; i <= 10; i++){
-  line(lineX, lineY, width - 350, lineY);
-  lineY += squareSize;
- } 
 }
 
 void highlight(){
@@ -125,6 +128,13 @@ void mouseClicked(){
           }
         }
       }
+     }
+   }
+   if (game.turn == 0){
+     if (mouseX > 50 && mouseX < 850 && mouseY > 50 && mouseY < 850){
+       if (!game.botBoard.sink(gridTranslate(mouseX), gridTranslate(mouseY))){
+         game.turn++;
+       }
      }
    }
  }

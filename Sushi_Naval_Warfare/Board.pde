@@ -1,14 +1,17 @@
 class Board{
  int[][] board;
  Ship[] ships; //2, 3, 3, 4, 5
+ int len;
  
  Board(){
   board = new int[10][10];
   ships = new Ship[5];
  }
  
- int getVal(int x, int y){
-  return board[x][y];
+ int getVal(float x, float y){
+   int bX = (int)(x - 50) / squareSize;
+   int bY = (int)(y - 50) / squareSize;
+   return board[bY][bX];
  }
  
  void drawShips(){
@@ -30,6 +33,7 @@ class Board{
      int bY = (int)(ships[ind].location[i].y - 50) / squareSize;
      board[bY][bX] += 1;
    }
+   len++;
  }
  
  boolean checkBoat(Ship tryShip){
@@ -42,12 +46,21 @@ class Board{
  }
  
  boolean checkSpot(float x, float y){
-   int bX = (int)(x - 50) / squareSize;
-   int bY = (int)(y - 50) / squareSize;
-   return board[bY][bX] == 0;
+   return getVal(x, y) == 0;
  }
  
  boolean sink(int x, int y){
-   return false; //true if hit a ship, false if miss
+   int bX = (int)(x - 50) / squareSize;
+   int bY = (int)(y - 50) / squareSize;
+   int v = getVal(x, y);
+   if (v >= 0){
+     if (v == 1){
+       this.board[bY][bX] = -2;
+       return true;
+     }
+     this.board[bY][bX] = -1;
+     return false;
+   }
+   return false;
  }
 }

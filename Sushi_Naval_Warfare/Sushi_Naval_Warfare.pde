@@ -81,6 +81,27 @@ void printPBoard(){
   }
   println("");
  }
+ println("");
+}
+
+void printBBoard(){
+ for (int[] row : game.botBoard.board){
+  for (int c : row){
+   print(c + " "); 
+  }
+  println("");
+ }
+ println("");
+}
+
+void printCBoard(){
+ for (int[] row : game.botBoard.chanceBoard){
+  for (int c : row){
+   print(c + " "); 
+  }
+  println("");
+ }
+ println("");
 }
 
 int gridTranslate(int n){
@@ -111,16 +132,18 @@ void mouseClicked(){
 
 void clearSelect(){
  for (ShipSelect s: shipSelects){
-  s.selected = false; 
+  s.selected = false;
  }
 }
 
 void keyPressed(){
  if (key == 'x'){
-  selectedShip = null; 
+  selectedShip = null;
  }
  if (key == 'c'){
-  printPBoard(); 
+   //printPBoard();
+   //printCBoard();
+   printBBoard();
  }
  if (key == 'r'){
   if (selectedShip != null){

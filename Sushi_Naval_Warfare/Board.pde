@@ -20,9 +20,9 @@ class Board{
  }
  
  void addShip(Ship newShip){
-   int ind = 0;
-   while (ships[ind] != null){
-    ind++; 
+   int ind = newShip.size - 1;
+   if (ind == 1 || (ind == 2 && ships[1] == null)){
+     ind--;
    }
    ships[ind] = newShip;
    for(int i = 0; i < ships[ind].size; i++){
@@ -34,7 +34,7 @@ class Board{
  
  boolean checkBoat(Ship tryShip){
    for (PVector l : tryShip.location){
-     if(!checkSpot(l.x, l.y)){
+     if(l.x < 50 || l.x > 770 || l.y < 50 || l.y > 770 || !checkSpot(l.x, l.y)){
        return false;
      }
    }

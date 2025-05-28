@@ -1,17 +1,22 @@
 class Battleship{
  int turn;
  Board playerBoard;
- Board botBoard;
+ BBoard botBoard;
  
  Battleship(){
-  turn = -1; //setting up boats
+  turn = -2; //setting up boats
   playerBoard = new Board();
   botBoard = new BBoard();
  }
  
  void update(){
   if (turn <= 0){
-   playerBoard.drawShips(); 
+    if (turn == -2){
+      this.botBoard.setBotBoard();
+      turn++;
+    }
+    playerBoard.drawShips();
+    //botBoard.drawShips();
   }
  }
  

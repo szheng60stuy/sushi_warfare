@@ -2,6 +2,8 @@ Battleship game;
 int squareSize;
 color backColor;
 color shipColor;
+ArrayList<PVector> boomedPlayer;
+ArrayList<PVector> boomedBot;
 ShipSelect[] shipSelects;
 ShipSelect selectedShip;
 
@@ -11,6 +13,8 @@ void setup(){
  backColor = color(162, 164, 165);
  shipColor = color(6, 180, 240);
  game = new Battleship();
+ boomedPlayer = new ArrayList<PVector>();
+ boomedBot = new ArrayList<PVector>();
  shipSelects = new ShipSelect[5];
  shipSelects[0] = new ShipSelect(loadImage("twoShipSelect.png"), 900, 50, 2, false);
  shipSelects[1] = new ShipSelect(loadImage("threeShipSelect.png"), 900, 150, 3, true);
@@ -20,7 +24,7 @@ void setup(){
 }
 
 void draw(){
-  background(backColor);
+ background(backColor);
  grid();
  //printMouseLocations();
  for (ShipSelect s: shipSelects){
@@ -35,6 +39,12 @@ void draw(){
    selectedShip.hover(); 
  }
  game.update();
+ if (game.turn == 0){
+   boomGrid(boomedBot);
+ }
+ if (game.turn == 1 || game.turn == 2){
+   boomGrid(boomedPlayer);
+ }
  highlight();
 }
 
@@ -48,24 +58,21 @@ void printMouseLocations(){
  println("x: " + mouseX + ", y: " + mouseY);
 }
 
+//50, 770
 void grid(){
  fill(shipColor);
  for (int r = 50; r < 850; r += squareSize){
    for (int c = 50; c < 850; c+= squareSize){
-     if (game.turn != 0){
-       if (game.playerBoard.getVal(c, r) < 0){
-         tint(170, 255);
-       }
-     }
-     if (game.turn == 0){
-       if (game.botBoard.getVal(c, r) < 0){
-         tint(170, 255);
-       }
-     }
-     rect(c, r, squareSize, squareSize);
-       tint(255);
+     rect(r, c, squareSize, squareSize);
    }
  }
+}
+
+void boomGrid(ArrayList<PVector> boomed){
+  fill(10, 10, 10, 100);
+  for (PVector l : boomed){
+    rect(l.x, l.y, squareSize, squareSize);
+  }
 }
 
 void highlight(){
@@ -133,7 +140,7 @@ void mouseClicked(){
    if (game.turn == 0){
      if (mouseX > 50 && mouseX < 850 && mouseY > 50 && mouseY < 850){
        if (!game.botBoard.sink(gridTranslate(mouseX), gridTranslate(mouseY))){
-         game.turn++;
+          game.turn++;
        }
      }
    }

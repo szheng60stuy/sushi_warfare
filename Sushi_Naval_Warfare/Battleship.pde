@@ -24,7 +24,7 @@ class Battleship{
   }
   if (turn == 1){
    if (!game.botBoard.sink(gridTranslate((int)random(50, 850)), gridTranslate((int)random(50, 850)))){
-      game.turn--;
+      game.turn++;
    } 
   }
  }

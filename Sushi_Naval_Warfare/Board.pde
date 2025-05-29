@@ -54,6 +54,12 @@ class Board{
    int bY = (int)(y - 50) / squareSize;
    int v = getVal(x, y);
    if (v >= 0){
+     if (game.turn == 0){
+       boomedBot.add(new PVector(x, y));
+     }
+     if (game.turn == 1){
+       boomedPlayer.add(new PVector(x, y));
+     }
      if (v == 1){
        this.board[bY][bX] = -2;
        return true;
@@ -61,6 +67,6 @@ class Board{
      this.board[bY][bX] = -1;
      return false;
    }
-   return false;
+   return true;
  }
 }

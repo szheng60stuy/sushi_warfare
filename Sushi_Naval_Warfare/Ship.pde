@@ -56,5 +56,14 @@ class Ship{
    }
  }
  
- 
+ boolean checkAlive(Board b){
+   if (isAlive){
+     for (PVector l : location){
+       if (b.getVal(l.x, l.y) != -2){
+         return true;
+       }
+     }
+   }
+   return false;
+ }
 }

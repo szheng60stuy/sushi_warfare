@@ -40,10 +40,10 @@ void draw(){
  }
  game.update();
  if (game.turn == 0){
-   boomGrid(boomedBot);
+   boomGrid(boomedBot, game.botBoard);
  }
  if (game.turn == 1 || game.turn == 2){
-   boomGrid(boomedPlayer);
+   boomGrid(boomedPlayer, game.playerBoard);
  }
  highlight();
 }
@@ -68,9 +68,16 @@ void grid(){
  }
 }
 
-void boomGrid(ArrayList<PVector> boomed){
-  fill(10, 10, 10, 100);
+void boomGrid(ArrayList<PVector> boomed, Board b){
   for (PVector l : boomed){
+    int bX = (int)(l.x - 50) / squareSize;
+    int bY = (int)(l.y - 50) / squareSize;
+    if (b.board[bY][bX] == -2){
+      fill(100, 10, 10, 150);
+    }
+    else{
+      fill(10, 10, 10, 100);
+    }
     rect(l.x, l.y, squareSize, squareSize);
   }
 }
@@ -158,9 +165,13 @@ void keyPressed(){
   selectedShip = null;
  }
  if (key == 'c'){
-   //printPBoard();
-   //printCBoard();
+   printCBoard();
+ }
+ if (key == 'b'){
    printBBoard();
+ }
+ if (key == 'p'){
+   printPBoard();
  }
  if (key == 'r'){
   if (selectedShip != null){

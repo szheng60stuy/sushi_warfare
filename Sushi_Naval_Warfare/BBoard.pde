@@ -54,6 +54,14 @@ class BBoard extends Board{
    }
  }
  
+ void drawShips(){
+   for (Ship s : ships){
+     if (s.checkAlive(this) == false){
+       
+     }
+   }
+ }
+ 
  Ship tryShip(int s){
    int rotNum = (int)random(2);
    if (rotNum == 0){

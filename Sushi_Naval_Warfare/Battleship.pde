@@ -2,12 +2,23 @@ class Battleship{
  int turn;
  Board playerBoard;
  BBoard botBoard;
+ int delayMark;
  
  Battleship(){
   turn = -2; //setting up boats
   playerBoard = new Board();
   botBoard = new BBoard();
  }
+ 
+ 
+ /*turn
+ -2 : setting up boats + botBoard set up
+ -1 : setting up boats
+ 0 : player's turn shooting at bot boats
+ 1 : bot turn shooting at player boats
+ 2: player shot boat ; pause
+ 3: bot shot boat ; pause
+ */
  
  void update(){
   if (turn < 0){
@@ -19,15 +30,32 @@ class Battleship{
       turn++;
     }
   }
-  if (turn != 0){
+  if (turn != 0 && turn != 2){
     playerBoard.drawShips();
   }
+  if (turn == 0 || turn == 2){
+    botBoard.drawCookedShips();
+  }
   if (turn == 1){
-   if (!game.playerBoard.sink(gridTranslate((int)random(50, 850)), gridTranslate((int)random(50, 850)))){
-      game.turn--;
+   if (frameCount - delayMark > 100 && !game.playerBoard.sink(gridTranslate((int)random(50, 850)), gridTranslate((int)random(50, 850)))){
+      game.turn = 3;
+      delayMark = frameCount;
+      for (Ship s : playerBoard.ships){
+        s.checkAlive(playerBoard);
+      }
    } 
   }
+  if (turn == 2){
+    if (frameCount - delayMark > 100){
+      turn = 1;
+      delayMark = frameCount;
+    }
+  }
+  if (turn == 3){
+    if (frameCount - delayMark > 100){
+      turn = 0;
+    }
+  }
  }
- 
  
 }

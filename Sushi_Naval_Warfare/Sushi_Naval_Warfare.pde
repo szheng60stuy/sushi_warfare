@@ -8,7 +8,8 @@ ShipSelect[] shipSelects;
 ShipSelect selectedShip;
 
 void setup(){
- size(1200, 900); 
+ size(1200, 900);
+ frameRate(60);
  squareSize = 80;
  backColor = color(162, 164, 165);
  shipColor = color(6, 180, 240);
@@ -39,10 +40,10 @@ void draw(){
    selectedShip.hover(); 
  }
  game.update();
- if (game.turn == 0){
+ if (game.turn == 0 || game.turn == 2){
    boomGrid(boomedBot, game.botBoard);
  }
- if (game.turn == 1 || game.turn == 2){
+ if (game.turn == 1 || game.turn == 3){
    boomGrid(boomedPlayer, game.playerBoard);
  }
  highlight();
@@ -147,7 +148,11 @@ void mouseClicked(){
    if (game.turn == 0){
      if (mouseX > 50 && mouseX < 850 && mouseY > 50 && mouseY < 850){
        if (!game.botBoard.sink(gridTranslate(mouseX), gridTranslate(mouseY))){
-          game.turn++;
+          game.turn = 2;
+          game.delayMark = frameCount;
+          for (Ship s : game.botBoard.ships){
+            s.checkAlive(game.botBoard);
+          }
        }
      }
    }

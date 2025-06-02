@@ -6,36 +6,49 @@ class BBoard extends Board{
   chanceBoard = new int[10][10];
  }
  
+ void calcChoose(){
+   int maxX = 0;
+   int maxY = 0;
+   int max = 0;
+   for (int row = 0; row < chanceBoard.length; row++){
+     for (int col = 0; col < chanceBoard.length; col++){
+       
+     }
+   }
+ }
+ 
  void calcProbability(Ship[] ships){
    if (ships[4] != null){
      chanceBoard = new int[10][10];
      for (int row = 0; row < chanceBoard.length; row++){
        for (int col = 0; col < chanceBoard.length; col++){
          boolean[] dir = {true, true, true, true};
-         for (int i = 0; i < ships.length; i++){
-           if (dir[0] && (row - ships[i].size + 1 >= 0) && game.playerBoard.board[row - ships[i].size + 1][col] >= 0){
-             chanceBoard[row][col] += 1;
-           }
-           else{
-            dir[0] = false; 
-           }
-           if (dir[1] && (col + ships[i].size - 1 < game.playerBoard.board[row].length) && game.playerBoard.board[row][col + ships[i].size - 1] >= 0){
-             chanceBoard[row][col] += 1;
-           }
-           else{
-            dir[1] = false; 
-           }
-           if (dir[2] && (row + ships[i].size - 1 < game.playerBoard.board.length) && game.playerBoard.board[row + ships[i].size - 1][col] >= 0){
-             chanceBoard[row][col] += 1;
-           }
-           else{
-            dir[2] = false; 
-           }
-           if (dir[3] && (col - ships[i].size + 1 >= 0) && game.playerBoard.board[row][col - ships[i].size + 1] >= 0){
-             chanceBoard[row][col] += 1;
-           }
-           else{
-            dir[3] = false; 
+         for (Ship s : ships){
+           if (s.isAlive){
+             if (dir[0] && (row - s.size + 1 >= 0) && game.playerBoard.board[row - s.size + 1][col] >= 0){
+               chanceBoard[row][col] += 1;
+             }
+             else{
+              dir[0] = false; 
+             }
+             if (dir[1] && (col + s.size - 1 < game.playerBoard.board[row].length) && game.playerBoard.board[row][col + s.size - 1] >= 0){
+               chanceBoard[row][col] += 1;
+             }
+             else{
+              dir[1] = false; 
+             }
+             if (dir[2] && (row + s.size - 1 < game.playerBoard.board.length) && game.playerBoard.board[row + s.size - 1][col] >= 0){
+               chanceBoard[row][col] += 1;
+             }
+             else{
+              dir[2] = false; 
+             }
+             if (dir[3] && (col - s.size + 1 >= 0) && game.playerBoard.board[row][col - s.size + 1] >= 0){
+               chanceBoard[row][col] += 1;
+             }
+             else{
+              dir[3] = false; 
+             }
            }
          }
        }
@@ -51,14 +64,6 @@ class BBoard extends Board{
        addShip = tryShip(s);
      }
      game.botBoard.addShip(addShip);
-   }
- }
- 
- void drawShips(){
-   for (Ship s : ships){
-     if (s.checkAlive(this) == false){
-       
-     }
    }
  }
  

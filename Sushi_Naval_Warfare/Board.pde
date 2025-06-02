@@ -22,6 +22,14 @@ class Board{
   }
  }
  
+ void drawCookedShips(){
+   for (Ship s : ships){
+     if (s != null && s.isAlive == false){
+       s.drawShip();
+     }
+   }
+ }
+ 
  void addShip(Ship newShip){
    int ind = newShip.size - 1;
    if (ind == 1 || (ind == 2 && ships[1] == null)){
@@ -62,6 +70,7 @@ class Board{
      }
      if (v == 1){
        this.board[bY][bX] = -2;
+       game.delayMark = frameCount;
        return true;
      }
      this.board[bY][bX] = -1;

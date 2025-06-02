@@ -64,6 +64,7 @@ class Ship{
        }
      }
    }
+   isAlive = false;
    return false;
  }
 }

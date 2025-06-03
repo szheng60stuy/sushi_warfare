@@ -3,6 +3,7 @@ class Battleship{
  Board playerBoard;
  BBoard botBoard;
  int delayMark;
+ boolean over;
  
  Battleship(){
   turn = -2; //setting up boats
@@ -34,10 +35,14 @@ class Battleship{
     playerBoard.drawShips();
   }
   if (turn == 0 || turn == 2){
+    for (Ship s : game.botBoard.ships){
+            s.checkAlive(game.botBoard);
+     }
     botBoard.drawCookedShips();
   }
-  if (turn == 1){
-   if (frameCount - delayMark > 100 && !game.playerBoard.sink(gridTranslate((int)random(50, 850)), gridTranslate((int)random(50, 850)))){
+  if (turn == 1 && !over){
+    PVector loc = botBoard.calcChoose();
+   if (frameCount - delayMark > 100 && !game.playerBoard.sink(loc)){
       game.turn = 3;
       delayMark = frameCount;
       for (Ship s : playerBoard.ships){
@@ -55,6 +60,18 @@ class Battleship{
     if (frameCount - delayMark > 100){
       turn = 0;
     }
+  }
+  if (turn >= 0 && playerBoard.checkAlive() == false){
+    over = true;
+    fill(0);
+    textSize(30);
+    text("Bot Won!", 35, 35);
+  }
+  if (turn >= 0 && botBoard.checkAlive() == false){
+    over = true;
+    fill(0);
+    textSize(30);
+    text("You Won!", 35, 35);
   }
  }
  

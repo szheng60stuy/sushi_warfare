@@ -57,16 +57,16 @@ class Board{
    return getVal(x, y) == 0;
  }
  
- boolean sink(int x, int y){
-   int bX = (int)(x - 50) / squareSize;
-   int bY = (int)(y - 50) / squareSize;
-   int v = getVal(x, y);
+ boolean sink(PVector loc){
+   int bX = (int)(loc.x - 50) / squareSize;
+   int bY = (int)(loc.y - 50) / squareSize;
+   int v = getVal(loc.x, loc.y);
    if (v >= 0){
      if (game.turn == 0){
-       boomedBot.add(new PVector(x, y));
+       boomedBot.add(new PVector(loc.x, loc.y));
      }
      if (game.turn == 1){
-       boomedPlayer.add(new PVector(x, y));
+       boomedPlayer.add(new PVector(loc.x, loc.y));
      }
      if (v == 1){
        this.board[bY][bX] = -2;
@@ -77,5 +77,14 @@ class Board{
      return false;
    }
    return true;
+ }
+ 
+ boolean checkAlive(){
+   for (Ship s : ships){
+     if (s.isAlive == true){
+       return true;
+     }
+   }
+   return false;
  }
 }

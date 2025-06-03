@@ -113,6 +113,7 @@ void printBBoard(){
 }
 
 void printCBoard(){
+ game.botBoard.calcProbability();
  for (int[] row : game.botBoard.chanceBoard){
   for (int c : row){
    print(c + " "); 
@@ -147,12 +148,9 @@ void mouseClicked(){
    }
    if (game.turn == 0){
      if (mouseX > 50 && mouseX < 850 && mouseY > 50 && mouseY < 850){
-       if (!game.botBoard.sink(gridTranslate(mouseX), gridTranslate(mouseY))){
+       if (!game.over && !game.botBoard.sink(new PVector(gridTranslate(mouseX), gridTranslate(mouseY)))){
           game.turn = 2;
           game.delayMark = frameCount;
-          for (Ship s : game.botBoard.ships){
-            s.checkAlive(game.botBoard);
-          }
        }
      }
    }

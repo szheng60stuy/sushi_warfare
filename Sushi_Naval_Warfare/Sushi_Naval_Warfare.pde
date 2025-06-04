@@ -113,7 +113,9 @@ void printBBoard(){
 }
 
 void printCBoard(){
- game.botBoard.calcProbability();
+  if (game.playerBoard.len == 5){
+   game.botBoard.calcProbability();
+  }
  for (int[] row : game.botBoard.chanceBoard){
   for (int c : row){
    print(c + " "); 

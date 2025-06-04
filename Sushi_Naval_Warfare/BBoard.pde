@@ -52,7 +52,7 @@ class BBoard extends Board{
          }
          else{
              boolean[] dir = {true, true, true, true};
-             for (Ship s : ships){
+             for (Ship s : game.playerBoard.ships){
                if (s.isAlive){
                  if (dir[0] && (row - s.size + 1 >= 0) && game.playerBoard.board[row - s.size + 1][col] >= 0){
                    chanceBoard[row][col] += 1;

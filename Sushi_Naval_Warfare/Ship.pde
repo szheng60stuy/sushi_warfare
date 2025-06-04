@@ -63,6 +63,18 @@ class Ship{
          return true;
        }
      }
+     if (game.turn == 1){
+       for (PVector l : this.location){
+         int row = (int)(l.y - 50)/squareSize;
+         int col = (int)(l.x - 50)/squareSize;
+         for(int i = 0; i < game.botBoard.marked.size(); i++){
+           PVector mark = game.botBoard.marked.get(i);
+           if (row == mark.x && col == mark.y){
+             
+           }
+         }
+       }
+     }
    }
    isAlive = false;
    return false;

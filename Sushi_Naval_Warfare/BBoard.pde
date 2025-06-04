@@ -1,9 +1,11 @@
 class BBoard extends Board{
  int[][] chanceBoard;
+ ArrayList<PVector> marked;
  
  BBoard(){
   super();
   chanceBoard = new int[10][10];
+  marked = new ArrayList<PVector>();
  }
  
  PVector calcChoose(){

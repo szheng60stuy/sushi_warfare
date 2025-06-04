@@ -71,6 +71,10 @@ class Board{
      if (v == 1){
        this.board[bY][bX] = -2;
        game.delayMark = frameCount;
+       if (game.turn == 1){
+         game.botBoard.marked.add(new PVector(bY, bX));
+         println(game.botBoard.marked);
+       }
        return true;
      }
      this.board[bY][bX] = -1;

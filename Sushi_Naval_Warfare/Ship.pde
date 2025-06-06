@@ -70,7 +70,7 @@ class Ship{
          for(int i = 0; i < game.botBoard.marked.size(); i++){
            PVector mark = game.botBoard.marked.get(i);
            if (row == mark.x && col == mark.y){
-             
+             game.botBoard.marked.remove(i);
            }
          }
        }

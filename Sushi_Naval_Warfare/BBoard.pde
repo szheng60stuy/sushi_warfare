@@ -9,8 +9,82 @@ class BBoard extends Board{
  }
  
  PVector calcChoose(){
-   PVector result = translateToCoord(calcChooseHighest());
-   return result;
+   calcProbability();
+   PVector result;
+   if (marked.size() > 0){
+     result = calcChooseHighest(markAdjacents());
+   }
+   else{
+     result = calcChooseHighest(findMax());
+   }
+   return translateToCoord(result);
+ }
+ 
+ ArrayList<PVector> markAdjacents(){
+   ArrayList<PVector> maxes = new ArrayList<PVector>();
+   if (marked.size() == 1){
+     PVector mark = marked.get(0);
+     PVector[] dir = new PVector[4]; // up down right left
+     if (mark.x > 0){
+       dir[0] = new PVector(mark.x - 1, mark.y);
+     }
+     if (mark.x < 9){
+       dir[1] = new PVector(mark.x + 1, mark.y);
+     }
+     if (mark.y < 9){
+       dir[2] = new PVector(mark.x, mark.y + 1);
+     }
+     if (mark.x > 0){
+       dir[3] = new PVector(mark.x, mark.y - 1);
+     }
+     int high = 0;
+     for (PVector direction : dir){
+       if (direction != null){
+         int val = chanceBoard[(int)mark.y][(int)mark.x];
+         if (val > high){
+           high = val;
+           maxes = new ArrayList<PVector>();
+           maxes.add(direction);
+         }
+         if (val == high){
+           maxes.add(direction);
+         }
+       }
+     }
+   }
+   else{
+     PVector head = null;
+     PVector tail = null;
+     PVector wayOne = null;
+     PVector wayTwo = null;
+     for (PVector mark : marked){
+       if (head == null || mark.x < head.x || mark.y < head.y){
+         head = mark;
+       }
+       else if (tail == null || mark.x > tail.x || mark.y > tail.y){
+         tail = mark;
+       }
+     }
+     if (head.x == tail.x){
+       if (head.y > 0){
+         wayOne = new PVector(head.x, head.y - 1);
+       }
+       if (tail.y < 9){
+         wayTwo = new PVector(tail.x, tail.y + 1);
+       }
+     }
+     else if (head.y == tail.y){
+       if (head.x > 0){
+         wayOne = new PVector(head.x - 1, head.y);
+       }
+       if (tail.x < 9){
+         wayTwo = new PVector(tail.x - 1, tail.y);
+       }
+     }
+     
+   }
+   
+   return maxes;
  }
  
  PVector translateToCoord(PVector p){
@@ -20,10 +94,8 @@ class BBoard extends Board{
    return p;
  }
  
- PVector calcChooseHighest(){
-   calcProbability();
-   ArrayList<PVector> maxes = findMax();
-   return maxes.get((int)random(maxes.size()));
+ PVector calcChooseHighest(ArrayList<PVector> list){
+   return list.get((int)random(list.size()));
  }
  
  ArrayList<PVector> findMax(){

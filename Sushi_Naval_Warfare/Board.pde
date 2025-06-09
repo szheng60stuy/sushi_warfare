@@ -73,7 +73,6 @@ class Board{
        game.delayMark = frameCount;
        if (game.turn == 1){
          game.botBoard.marked.add(new PVector(bY, bX));
-         println(game.botBoard.marked);
        }
        return true;
      }

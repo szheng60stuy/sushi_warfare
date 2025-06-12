@@ -4,28 +4,35 @@ color backColor;
 color shipColor;
 ArrayList<PVector> boomedPlayer;
 ArrayList<PVector> boomedBot;
+ArrayList<Slash> slashes;
 ShipSelect[] shipSelects;
 ShipSelect selectedShip;
+PImage back;
+PImage sea;
 
 void setup(){
  size(1200, 900);
  frameRate(60);
  squareSize = 80;
- backColor = color(162, 164, 165);
- shipColor = color(6, 180, 240);
  game = new Battleship();
  boomedPlayer = new ArrayList<PVector>();
  boomedBot = new ArrayList<PVector>();
+ slashes = new ArrayList<Slash>();
  shipSelects = new ShipSelect[5];
  shipSelects[0] = new ShipSelect(loadImage("twoShipSelect.png"), 900, 50, 2, false);
  shipSelects[1] = new ShipSelect(loadImage("threeShipSelect.png"), 900, 150, 3, true);
  shipSelects[2] = new ShipSelect(loadImage("threeShipSelect.png"), 1000, 150, 3, true);
  shipSelects[3] = new ShipSelect(loadImage("fourShipSelect.png"), 900, 400, 4, true);
  shipSelects[4] = new ShipSelect(loadImage("fiveShipSelect.png"), 1000, 400, 5, true);
+ back = loadImage("back.png");
+ back.resize(1200, 900);
+ sea = loadImage("sea.png");
 }
 
 void draw(){
- background(backColor);
+ background(color(0));
+ image(back, 0, 0);
+ image(sea, 50, 50);
  grid();
  //printMouseLocations();
  for (ShipSelect s: shipSelects){
@@ -47,6 +54,9 @@ void draw(){
    boomGrid(boomedPlayer, game.playerBoard);
  }
  highlight();
+ for (Slash s : slashes){
+   s.draw();
+ }
 }
 
 //not necessary for the game, just for convenience while coding
@@ -61,11 +71,11 @@ void printMouseLocations(){
 
 //50, 770
 void grid(){
- fill(shipColor);
  for (int r = 50; r < 850; r += squareSize){
-   for (int c = 50; c < 850; c+= squareSize){
-     rect(r, c, squareSize, squareSize);
-   }
+   line(r, 50, r, 850);
+ }
+ for (int r = 50; r < 850; r += squareSize){
+   line(50, r , 850, r);
  }
 }
 

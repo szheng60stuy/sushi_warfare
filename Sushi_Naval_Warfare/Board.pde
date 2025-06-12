@@ -74,9 +74,11 @@ class Board{
        if (game.turn == 1){
          game.botBoard.marked.add(new PVector(bY, bX));
        }
+       slashes.add(new Slash((int)loc.x, (int)loc.y));
        return true;
      }
      this.board[bY][bX] = -1;
+     slashes.add(new Slash((int)loc.x, (int)loc.y));
      return false;
    }
    return true;

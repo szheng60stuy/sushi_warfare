@@ -24,22 +24,22 @@ class Ship{
    imgs[1] = loadImage("twoShipTwo.png"); 
   }
   if (size == 3){
-   imgs[0] = loadImage("twoShipOne.png");
-   imgs[1] = loadImage("shipBody.png");
-   imgs[2] = loadImage("twoShipTwo.png"); 
+   imgs[0] = loadImage("shipCornerOne.png");
+   imgs[1] = loadImage("sushiBody.png");
+   imgs[2] = loadImage("shipCornerTwo.png"); 
   }
   if (size == 4){
-   imgs[0] = loadImage("twoShipOne.png");
-   imgs[1] = loadImage("shipBody.png");
-   imgs[2] = loadImage("shipBody.png");
-   imgs[3] = loadImage("twoShipTwo.png"); 
+   imgs[0] = loadImage("shipCornerOne.png");
+   imgs[1] = loadImage("sushiBodyTwo.png");
+   imgs[2] = loadImage("sushiBodyTwo.png");
+   imgs[3] = loadImage("shipCornerTwo.png"); 
   }
   if (size == 5){
-   imgs[0] = loadImage("twoShipOne.png");
-   imgs[1] = loadImage("shipBody.png");
-   imgs[2] = loadImage("shipBody.png");
-   imgs[3] = loadImage("shipBody.png");
-   imgs[4] = loadImage("twoShipTwo.png"); 
+   imgs[0] = loadImage("shipCornerOne.png");
+   imgs[1] = loadImage("sushiBodyThree.png");
+   imgs[2] = loadImage("sushiBodyThree.png");
+   imgs[3] = loadImage("sushiBodyThree.png");
+   imgs[4] = loadImage("shipCornerTwo.png"); 
   }
  }
  

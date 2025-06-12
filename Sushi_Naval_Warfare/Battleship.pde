@@ -42,31 +42,31 @@ class Battleship{
   }
   if (turn == 1 && !over){
     PVector loc = botBoard.calcChoose();
-   if (frameCount - delayMark > 100 / 10 && !game.playerBoard.sink(loc)){
-      //game.turn = 3;
+   if (frameCount - delayMark > 30 && !game.playerBoard.sink(loc)){
+      game.turn = 3;
       delayMark = frameCount;
    } 
   }
   if (turn == 2){
-    if (frameCount - delayMark > 100){
+    if (frameCount - delayMark > 30){
       turn = 1;
       delayMark = frameCount;
     }
   }
   if (turn == 3){
-    if (frameCount - delayMark > 100){
+    if (frameCount - delayMark > 30){
       turn = 0;
     }
   }
   if (turn >= 0 && playerBoard.checkAlive() == false){
     over = true;
-    fill(0);
+    fill(255);
     textSize(30);
     text("Bot Won!", 35, 35);
   }
   if (turn >= 0 && botBoard.checkAlive() == false){
     over = true;
-    fill(0);
+    fill(255);
     textSize(30);
     text("You Won!", 35, 35);
   }

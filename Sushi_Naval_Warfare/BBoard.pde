@@ -27,7 +27,6 @@ class BBoard extends Board{
    ArrayList<PVector> maxes = new ArrayList<PVector>();
    if (marked.size() == 1){
      PVector mark = marked.get(0);
-     //println(mark);
      PVector[] dir = new PVector[4]; // up down right left
      if (mark.x > 0){
        dir[0] = new PVector(mark.x - 1, mark.y);
@@ -44,7 +43,6 @@ class BBoard extends Board{
      int high = 0;
      for (PVector direction : dir){
        if (direction != null){
-         //println("dir: " + direction);
          int val = chanceBoard[(int)mark.y][(int)mark.x];
          if (val > high){
            high = val;
@@ -62,7 +60,6 @@ class BBoard extends Board{
      PVector tail = marked.get(marked.size() - 1);
      PVector wayOne = null;
      PVector wayTwo = null;
-     println(marked);
      for (PVector mark : marked){
        if (mark.x < head.x || mark.y < head.y){
          head = mark;
@@ -71,9 +68,7 @@ class BBoard extends Board{
          tail = mark;
        }
      }
-     println("head: " + head);
-     println("tail: " + tail);
-     if (head != null && tail != null && head.x == tail.x){
+     if (head.x == tail.x){
        if (head.y > 0){
          wayOne = new PVector(head.x, head.y - 1);
        }
@@ -81,7 +76,7 @@ class BBoard extends Board{
          wayTwo = new PVector(tail.x, tail.y + 1);
        }
      }
-     else if (head != null && tail != null && head.y == tail.y){
+     else if (head.y == tail.y){
        if (head.x > 0){
          wayOne = new PVector(head.x - 1, head.y);
        }
@@ -89,8 +84,7 @@ class BBoard extends Board{
          wayTwo = new PVector(tail.x + 1, tail.y);
        }
      }
-     println("wayOne: " + wayOne);
-     println("wayTwo: " + wayTwo);
+     
      if (wayOne != null && (wayTwo == null || chanceBoard[(int)wayOne.x][(int)wayOne.y] > chanceBoard[(int)wayTwo.x][(int)wayTwo.y])){
        maxes.add(wayOne);
      }
@@ -98,8 +92,6 @@ class BBoard extends Board{
        maxes.add(wayTwo);
      }
    }
-   println(maxes);
-   printCBoard();
    return maxes;
  }
  

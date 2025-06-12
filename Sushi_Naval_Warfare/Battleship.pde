@@ -42,12 +42,9 @@ class Battleship{
   }
   if (turn == 1 && !over){
     PVector loc = botBoard.calcChoose();
-   if (frameCount - delayMark > 100 && !game.playerBoard.sink(loc)){
+   if (frameCount - delayMark > 100 / 10 && !game.playerBoard.sink(loc)){
       //game.turn = 3;
       delayMark = frameCount;
-      for (Ship s : playerBoard.ships){
-        s.checkAlive(playerBoard);
-      }
    } 
   }
   if (turn == 2){

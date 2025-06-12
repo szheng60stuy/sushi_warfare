@@ -168,6 +168,7 @@ void clearSelect(){
 void keyPressed(){
  if (key == 'x'){
   selectedShip = null;
+  println(game.botBoard.marked);
  }
  if (key == 'c'){
    printCBoard();
